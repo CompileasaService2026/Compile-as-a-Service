@@ -10,7 +10,7 @@ This project is intended for **research, testing, and controlled environments on
 
 > _Placeholder image — diagram coming soon_
 
-![Compile-as-a-Service Architecture](docs/architecture.png)
+![Compile-as-a-Service](caas1.png)
 
 ## ✨ Features
 - Remote compilation pipeline
