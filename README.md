@@ -21,12 +21,6 @@ YOUR_SRV_IP=127.0.0.1 SRV_PORT=8081 ICMP_MAGIC_SEQ=1337 MAGIC=mtz PORT=8081 NAME
 - Explicit kernel and distribution targeting
 - Designed to support reproducible research workflows
 
-## 🧱 High-Level Workflow
-1. Target system submits build parameters
-2. Remote builder compiles against a matching kernel environment
-3. Compiled artifacts are returned to the target
-4. Optional post-build handling based on configuration flags
-
 ## ⚙️ Configuration
 The system is configured via environment variables.
 
@@ -44,24 +38,17 @@ The system is configured via environment variables.
 | `INSTALL=1`         | Enable post-build installation                | Must be set on command line                  |
 | `PERSIST=1`         | Enable load on reboot                         | Requires `INSTALL=1`, command line only      |
 
+**If values are not explicitly set, most fields are randomized by default.**
 
-If values are not explicitly set, most fields are randomized by default.
 
-## 🔄 Recent Changes
 
-### Build System
+### Build System / Changes
 - Updated `Makefile` to support configurable kernel versions and header paths
 - main.c: added __be32 your_srv_ip = 0; (for socat reverse)
 - include/core.h added extern __be32 your_srv_ip; (for socat reverse)
 - Modified icmp.c that supports socat reverse if /usr/bin/socat exists
 
-### Core
-- Added centralized server IP handling
-- Improved shared configuration visibility across modules
-
 ⚠️ **Only the distributions and kernels listed below are confirmed working.**  
-The following distributions and kernel versions are **explicitly confirmed working**.
-
 ### Ubuntu 24.04
 - 6.8.0-41-generic
 - 6.8.0-49-generic
