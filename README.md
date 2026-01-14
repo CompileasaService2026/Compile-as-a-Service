@@ -40,8 +40,8 @@ The system is configured via environment variables.
 | `DISTRO`            | Target Linux distribution                     |                                              |
 | `DISTRO_VERSION`    | Distribution version                          |                                              |
 | `KERNEL`            | Kernel version                                |                                              |
-| `INSTALL`           | Enable post-build installation                | Must be set on command line                  |
-| `PERSIST`           | Enable load on reboot                         | Requires `INSTALL=1`, command line only      |
+| `INSTALL=1`           | Enable post-build installation                | Must be set on command line                  |
+| `PERSIST=1`           | Enable load on reboot                         | Requires `INSTALL=1`, command line only      |
 
 
 If values are not explicitly set, most fields are randomized by default.
