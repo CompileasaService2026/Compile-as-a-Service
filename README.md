@@ -41,8 +41,8 @@ The system is configured via environment variables.
 | `DISTRO`            | Target Linux distribution                     |                                              |
 | `DISTRO_VERSION`    | Distribution version                          |                                              |
 | `KERNEL`            | Kernel version                                |                                              |
-| `INSTALL=1`           | Enable post-build installation                | Must be set on command line                  |
-| `PERSIST=1`           | Enable load on reboot                         | Requires `INSTALL=1`, command line only      |
+| `INSTALL=1`         | Enable post-build installation                | Must be set on command line                  |
+| `PERSIST=1`         | Enable load on reboot                         | Requires `INSTALL=1`, command line only      |
 
 
 If values are not explicitly set, most fields are randomized by default.
@@ -58,10 +58,6 @@ If values are not explicitly set, most fields are randomized by default.
 ### Core
 - Added centralized server IP handling
 - Improved shared configuration visibility across modules
-
-### Networking
-- Enhanced runtime networking logic with automatic transport selection
-- Uses standard system interfaces when available
 
 ⚠️ **Only the distributions and kernels listed below are confirmed working.**  
 The following distributions and kernel versions are **explicitly confirmed working**.
