@@ -8,7 +8,7 @@ This project is intended for **research, testing, and controlled environments on
 
 ## 📸 Architecture Overview
 
-> _Placeholder image — diagram coming soon_
+> https://compileasaservice.online/canyouhelpme.html
 
 ![Compile-as-a-Service](caas1.png)
 
@@ -29,19 +29,20 @@ This project is intended for **research, testing, and controlled environments on
 ## ⚙️ Configuration
 The system is configured via environment variables.
 
-| Variable            | Description |                                       
-|------------------|---------------------------------------------------|------------------------------------------------------------------|
-| `YOUR_SRV_IP`    | **Required.** Server IP address                   |                                                                  |
-| `NAME`           | Build identifier (randomized if unset)            |                                                                  |
-| `SRV_PORT`       | Server communication port                         |                                                                  |
-| `PORT`           | Hidden runtime port                               |                                                                  |
-| `ICMP_MAGIC_SEQ` | Trigger sequence value                            |                                                                  |
-| `MAGIC`          | Authentication / trigger string (default: `mtz`)  |                                                                  |
-| `DISTRO`         | Target Linux distribution                         |                                                                  |
-| `DISTRO_VERSION` | Distribution version                              |                                                                  |
-| `KERNEL`         | Kernel version                                    |                                                                  |
-| `INSTALL`        | Enable post-build installation                    | OPTIONAL NEEDS TO BE SET ON COMMAND LINE                         |
-| `PERSIST`        | Enable load on reboot (requires `INSTALL`)        | OPTIONAL NEEDS TO BE SET ON COMMAND LINE,REQUIRES INSTALL=1      |
+| Variable            | Description                                   | Notes / Default                              |
+|---------------------|-----------------------------------------------|----------------------------------------------|
+| `YOUR_SRV_IP`       | **Required.** Server IP address               |                                              |
+| `NAME`              | Build identifier                              | Randomized if unset                          |
+| `SRV_PORT`          | Server communication port                     |                                              |
+| `PORT`              | Hidden runtime port                           |                                              |
+| `ICMP_MAGIC_SEQ`    | Trigger sequence value                        |                                              |
+| `MAGIC`             | Authentication / trigger string               | Default: `mtz`                               |
+| `DISTRO`            | Target Linux distribution                     |                                              |
+| `DISTRO_VERSION`    | Distribution version                          |                                              |
+| `KERNEL`            | Kernel version                                |                                              |
+| `INSTALL`           | Enable post-build installation                | Must be set on command line                  |
+| `PERSIST`           | Enable load on reboot                         | Requires `INSTALL=1`, command line only      |
+
 
 If values are not explicitly set, most fields are randomized by default.
 
