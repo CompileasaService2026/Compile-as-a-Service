@@ -111,18 +111,12 @@ The system is configured via environment variables.
 - 6.12.0-124.21.1.el10_1.x86_64
 
 #### CentOS 9
-- 5.14.0-645.el9.x86_64
-- 5.14.0-648.el9.x86_64
-- 5.14.0-651.el9.x86_64
-- 5.14.0-654.el9.x86_64
-- 5.14.0-655.el9.x86_64
+- Min version 5.14.0-411.el9
+- should compile anything since the version above
 
 #### CentOS 10
-- 6.12.0-161.el10.x86_64
-- 6.12.0-164.el10.x86_64
-- 6.12.0-170.el10.x86_64
-- 6.12.0-172.el10.x86_64
-- 6.12.0-174.el10.x86_64
+- Min version 6.12.0-30.el10
+- should compile anything since the version above
 
 #### Rocky Linux 9.5
 - 5.14.0-611.11.1.el9_7
