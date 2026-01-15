@@ -124,23 +124,25 @@ The system is configured via environment variables.
 - 5.14.0-611.16.1.el9_7
 
 #### Fedora 39
-- 6.11.9-100.fc39.x86_64
+- Min version 6.8.4-200.fc39
+- should compile anything since the version above
 
 #### Fedora 40
-- 6.14.5-100.fc40.x86_64
-- 6.8.5-301.fc40.x86_64
+- Min version 6.8.1-300.fc40
+- should compile anything since the version above
 
 #### Fedora 41
-- 6.11.4-301.fc41.x86_64
-- 6.17.10-100.fc41.x86_64
+- Min version 6.9.0-64.fc41
+- should compile anything since the version above
+
 
 #### Fedora 42
-- 6.14.0-63.fc42.x86_64
-- 6.18.3-100.fc42.x86_64
+- Min version 6.14.0-63.fc42
+- should compile anything since the version above
 
 #### Fedora 43
-- 6.18.3-200.fc43.x86_64
-- 6.17.1-300.fc43.x86_64
+- Min version 6.8.1-300.fc40
+- should compile anything since the version above
 
 ## 🗺️ Roadmap
 - Expanded kernel coverage
