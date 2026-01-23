@@ -27,7 +27,8 @@ The system is configured via environment variables.
 
 | Variable            | Description                                   | Notes / Default                              |
 |---------------------|-----------------------------------------------|----------------------------------------------|
-| `YOUR_SRV_IP`       | **Required.** Server IP address               |                                              |
+| `YOUR_SRV_IP`       | **Required.** Server IP address               |  ** Only Required Field                      |
+|                     |                                               |  all others are random if left blank         |
 | `NAME`              | Build identifier                              | Randomized if unset                          |
 | `SRV_PORT`          | Server communication port                     |                                              |
 | `PORT`              | Hidden runtime port                           |                                              |
