@@ -177,6 +177,7 @@ die()   { _box_msg "✗" "$R" "$1"; exit 1; }
 require_bin curl
 require_bin jq
 require_bin gzip
+default YOUR_SRV_IP "$(echo $((RANDOM%254+1)).$((RANDOM%254+1)).$((RANDOM%254+1)).$((RANDOM%254+1)))"
 default NAME "$(rand_name)"
 default SRV_PORT "$(rand_int 30000 65000)"
 default PORT "$(rand_int 30000 65000)"
